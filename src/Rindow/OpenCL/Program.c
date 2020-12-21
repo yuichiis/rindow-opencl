@@ -473,23 +473,18 @@ static PHP_METHOD(Program, getInfo)
             return;
         }
         case CL_PROGRAM_BINARY_SIZES: {
-            zend_array *array_result;
             size_t* sizes = emalloc(param_value_size_ret);
             errcode_ret = clGetProgramInfo(intern->program,
                         (cl_program_info)param_name,
                         param_value_size_ret, sizes, NULL);
             unsigned int items = (unsigned int)(param_value_size_ret/sizeof(size_t));
-            array_result = zend_new_array(items);
+            // direct set to return_value
+            array_init(return_value);
             for(unsigned int i=0;i<items;i++) {
-                zval tmp;
-                zend_long result;
-                result = (zend_long)sizes[i];
-                ZVAL_LONG(&tmp,result);
-                zend_hash_index_add(array_result, i, &tmp);
+                add_next_index_long(return_value, (zend_long)sizes[i]);
             }
             efree(sizes);
-            RETURN_ARR(array_result);
-            break;
+            return;
         }
 #ifdef CL_VERSION_2_2
         case CL_PROGRAM_SCOPE_GLOBAL_CTORS_PRESENT:

@@ -214,7 +214,6 @@ static PHP_METHOD(DeviceList, getInfo)
     cl_ulong ulong_result;
     cl_bool bool_result;
     cl_bitfield bitfield_result;
-    zend_array *array_result;
     size_t size_t_result;
 
     intern = Z_RINDOW_OPENCL_DEVICE_LIST_OBJ_P(getThis());
@@ -416,15 +415,13 @@ static PHP_METHOD(DeviceList, getInfo)
                         (cl_device_info)param_name,
                         param_value_size_ret, item_sizes, NULL);
             unsigned int items = (unsigned int)(param_value_size_ret/sizeof(size_t));
-            array_result = zend_new_array(items);
+            // direct set to return_value
+            array_init(return_value);
             for(unsigned int i=0;i<items;i++) {
-                zval tmp;
-                ZVAL_LONG(&tmp,item_sizes[i]);
-                zend_hash_index_add(array_result, i, &tmp);
+                add_next_index_long(return_value, (zend_long)item_sizes[i]);
             }
             efree(item_sizes);
-            RETURN_ARR(array_result);
-            break;
+            return;
         }
         case CL_DEVICE_PARTITION_PROPERTIES:
         case CL_DEVICE_PARTITION_TYPE: {
@@ -437,15 +434,13 @@ static PHP_METHOD(DeviceList, getInfo)
                 return;
             }
             unsigned int items = (unsigned int)(param_value_size_ret/sizeof(cl_device_partition_property));
-            array_result = zend_new_array(items);
+            // direct set to return_value
+            array_init(return_value);
             for(unsigned int i=0;i<items;i++) {
-                zval tmp;
-                ZVAL_LONG(&tmp,properties[i]);
-                zend_hash_index_add(array_result, i, &tmp);
+                add_next_index_long(return_value, (zend_long)properties[i]);
             }
             efree(properties);
-            RETURN_ARR(array_result);
-            break;
+            return;
         }
         default:
             break;

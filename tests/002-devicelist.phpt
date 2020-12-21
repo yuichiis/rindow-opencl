@@ -69,7 +69,6 @@ for($i=0;$i<$n;$i++) {
     echo "device(".$i.")\n";
     echo "    CL_DEVICE_VENDOR_ID=".$devices->getInfo($i,OpenCL::CL_DEVICE_VENDOR_ID)."\n";
     echo "    CL_DEVICE_NAME=".$devices->getInfo($i,OpenCL::CL_DEVICE_NAME)."\n";
-    echo "     (".bin2hex($devices->getInfo($i,OpenCL::CL_DEVICE_NAME)).")\n";
     echo "    CL_DEVICE_TYPE=(";
     $device_type = $devices->getInfo($i,OpenCL::CL_DEVICE_TYPE);
     if($device_type&OpenCL::CL_DEVICE_TYPE_CPU) { echo "CPU,"; }
@@ -82,13 +81,11 @@ for($i=0;$i<$n;$i++) {
     echo "    CL_DEVICE_PARTITION_PROPERTIES=(".implode(',',array_map(function($x){ return "0x".dechex($x);},
         $devices->getInfo($i,OpenCL::CL_DEVICE_PARTITION_PROPERTIES))).")\n";
     echo "    CL_DEVICE_VENDOR=".$devices->getInfo($i,OpenCL::CL_DEVICE_VENDOR)."\n";
-    echo "     (".bin2hex($devices->getInfo($i,OpenCL::CL_DEVICE_VENDOR)).")\n";
     echo "    CL_DEVICE_BUILT_IN_KERNELS=".$devices->getInfo($i,OpenCL::CL_DEVICE_BUILT_IN_KERNELS)."\n";
     echo "    CL_DEVICE_PROFILE=".$devices->getInfo($i,OpenCL::CL_DEVICE_PROFILE)."\n";
     echo "    CL_DRIVER_VERSION=".$devices->getInfo($i,OpenCL::CL_DRIVER_VERSION)."\n";
     echo "    CL_DEVICE_VERSION=".$devices->getInfo($i,OpenCL::CL_DEVICE_VERSION)."\n";
     echo "    CL_DEVICE_OPENCL_C_VERSION=".$devices->getInfo($i,OpenCL::CL_DEVICE_OPENCL_C_VERSION)."\n";
-    echo "     (".bin2hex($devices->getInfo($i,OpenCL::CL_DEVICE_OPENCL_C_VERSION)).")\n";
     echo "    CL_DEVICE_EXTENSIONS=".$devices->getInfo($i,OpenCL::CL_DEVICE_EXTENSIONS)."\n";
     echo "    CL_DEVICE_MAX_COMPUTE_UNITS=".$devices->getInfo($i,OpenCL::CL_DEVICE_MAX_COMPUTE_UNITS)."\n";
     echo "    CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS=".$devices->getInfo($i,OpenCL::CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS)."\n";

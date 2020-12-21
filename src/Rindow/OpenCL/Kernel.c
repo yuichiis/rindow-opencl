@@ -551,21 +551,18 @@ static PHP_METHOD(Kernel, getWorkGroupInfo)
         case CL_KERNEL_COMPILE_WORK_GROUP_SIZE:
         case CL_KERNEL_GLOBAL_WORK_SIZE: {
             size_t* item_sizes = emalloc(param_value_size_ret);
-            zend_array *array_result;
             errcode_ret = clGetKernelWorkGroupInfo(intern->kernel,
                         device_id,
                         (cl_kernel_work_group_info)param_name,
                         param_value_size_ret, item_sizes, NULL);
             unsigned int items = (unsigned int)(param_value_size_ret/sizeof(size_t));
-            array_result = zend_new_array(items);
+            // direct set to return_value
+            array_init(return_value);
             for(unsigned int i=0;i<items;i++) {
-                zval tmp;
-                ZVAL_LONG(&tmp,item_sizes[i]);
-                zend_hash_index_add(array_result, i, &tmp);
+                add_next_index_long(return_value, (zend_long)item_sizes[i]);
             }
             efree(item_sizes);
-            RETURN_ARR(array_result);
-            break;
+            return;
         }
         default:
             break;

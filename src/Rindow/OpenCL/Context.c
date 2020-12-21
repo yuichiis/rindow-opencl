@@ -214,7 +214,6 @@ static PHP_METHOD(Context, getInfo)
     cl_uint uint_result;
     cl_int errcode_ret;
     php_rindow_opencl_context_t* intern;
-    zend_array *array_result;
 
     ZEND_PARSE_PARAMETERS_START_EX(ZEND_PARSE_PARAMS_THROW, 1, 1)
         Z_PARAM_LONG(param_name)
@@ -250,17 +249,13 @@ static PHP_METHOD(Context, getInfo)
                         (cl_context_info)param_name,
                         param_value_size_ret, properties, NULL);
             unsigned int items = (unsigned int)(param_value_size_ret/sizeof(cl_context_properties));
-            array_result = zend_new_array(items);
+            // direct set to return_value
+            array_init(return_value);
             for(unsigned int i=0;i<items;i++) {
-                zval tmp;
-                zend_long result;
-                result = (zend_long)properties[i];
-                ZVAL_LONG(&tmp,result);
-                zend_hash_index_add(array_result, i, &tmp);
+                add_next_index_long(return_value, (zend_long)properties[i]);
             }
             efree(properties);
-            RETURN_ARR(array_result);
-            break;
+            return;
         }
         case CL_CONTEXT_REFERENCE_COUNT:
         case CL_CONTEXT_NUM_DEVICES: {

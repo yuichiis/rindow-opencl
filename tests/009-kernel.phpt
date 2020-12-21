@@ -136,19 +136,21 @@ echo "SUCCESS Local buffer\n";
 echo "CL_KERNEL_FUNCTION_NAME=".$kernel->getInfo(OpenCL::CL_KERNEL_FUNCTION_NAME)."\n";
 echo "CL_KERNEL_NUM_ARGS=".$kernel->getInfo(OpenCL::CL_KERNEL_NUM_ARGS)."\n";
 echo "CL_KERNEL_ATTRIBUTES=".$kernel->getInfo(OpenCL::CL_KERNEL_ATTRIBUTES)."\n";
+assert(is_array($kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_COMPILE_WORK_GROUP_SIZE)));
 echo "SUCCESS getInfo\n";
-//echo "CL_KERNEL_WORK_GROUP_SIZE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_WORK_GROUP_SIZE)."\n";
-//echo "CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE)."\n";
-//echo "CL_KERNEL_LOCAL_MEM_SIZE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_LOCAL_MEM_SIZE)."\n";
-//echo "CL_KERNEL_PRIVATE_MEM_SIZE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_PRIVATE_MEM_SIZE)."\n";
-//echo "CL_KERNEL_COMPILE_WORK_GROUP_SIZE=[".implode(',',$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_COMPILE_WORK_GROUP_SIZE))."]\n";
-//try {
-//    echo "CL_KERNEL_GLOBAL_WORK_SIZE=[".implode(',',$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_GLOBAL_WORK_SIZE))."]\n";
-//} catch(RuntimeException $e) {
-//    echo $e->getMessage()."\n";
-//}
-//echo "SUCCESS getWorkGroupInfo\n";
-
+/*
+echo "CL_KERNEL_WORK_GROUP_SIZE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_WORK_GROUP_SIZE)."\n";
+echo "CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE)."\n";
+echo "CL_KERNEL_LOCAL_MEM_SIZE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_LOCAL_MEM_SIZE)."\n";
+echo "CL_KERNEL_PRIVATE_MEM_SIZE=".$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_PRIVATE_MEM_SIZE)."\n";
+echo "CL_KERNEL_COMPILE_WORK_GROUP_SIZE=[".implode(',',$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_COMPILE_WORK_GROUP_SIZE))."]\n";
+try {
+    echo "CL_KERNEL_GLOBAL_WORK_SIZE=[".implode(',',$kernel->getWorkGroupInfo(OpenCL::CL_KERNEL_GLOBAL_WORK_SIZE))."]\n";
+} catch(RuntimeException $e) {
+    echo $e->getMessage()."\n";
+}
+echo "SUCCESS getWorkGroupInfo\n";
+*/
 $sources =
     "__kernel void multi_gid(const global float * x,\n".
     "                    __global float * y)\n".
