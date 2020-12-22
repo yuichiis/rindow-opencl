@@ -1,6 +1,6 @@
 Rindow OpenCL PHP extension
 ===========================
-You can use OpenCL with PHP.
+You can use OpenCL on PHP.
 The version of OpenCL is limited to version 1.2, and we are considering porting to a wide range of environments.
 
 Since our goal is to use it with the Rindow Neural Network Library, we currently only have the minimum required functionality. It will be expanded in the future.
