@@ -475,7 +475,7 @@ static PHP_METHOD(Buffer, readRect)
             = (host_offsets[2]+region[2]-1)*host_slice_pitch
             + (host_offsets[1]+region[1]-1)*host_row_pitch
             + (host_offsets[0]+region[0]-1);
-        if(pos_max >= ((host_buffer_obj->size - host_buffer_offset) * host_buffer_obj->value_size)) {
+        if(pos_max >= (((zend_long)(host_buffer_obj->size) - host_buffer_offset) * host_buffer_obj->value_size)) {
             efree(region);
             efree(buffer_offsets);
             efree(host_offsets);
@@ -492,7 +492,7 @@ static PHP_METHOD(Buffer, readRect)
             = (buffer_offsets[2]+region[2]-1)*buffer_slice_pitch
             + (buffer_offsets[1]+region[1]-1)*buffer_row_pitch
             + (buffer_offsets[0]+region[0]-1);
-        if(pos_max >= intern->size) {
+        if(pos_max >= (zend_long)(intern->size)) {
             efree(region);
             efree(buffer_offsets);
             efree(host_offsets);
@@ -834,7 +834,7 @@ static PHP_METHOD(Buffer, writeRect)
             = (host_offsets[2]+region[2]-1)*host_slice_pitch
             + (host_offsets[1]+region[1]-1)*host_row_pitch
             + (host_offsets[0]+region[0]-1);
-        if(pos_max >= ((host_buffer_obj->size - host_buffer_offset) * host_buffer_obj->value_size)) {
+        if(pos_max >= (((zend_long)(host_buffer_obj->size) - host_buffer_offset) * host_buffer_obj->value_size)) {
             efree(region);
             efree(buffer_offsets);
             efree(host_offsets);
@@ -851,7 +851,7 @@ static PHP_METHOD(Buffer, writeRect)
             = (buffer_offsets[2]+region[2]-1)*buffer_slice_pitch
             + (buffer_offsets[1]+region[1]-1)*buffer_row_pitch
             + (buffer_offsets[0]+region[0]-1);
-        if(pos_max >= intern->size) {
+        if(pos_max >= (zend_long)(intern->size)) {
             efree(region);
             efree(buffer_offsets);
             efree(host_offsets);
@@ -1255,7 +1255,7 @@ static PHP_METHOD(Buffer, copyRect)
             = (src_origins[2]+region[2]-1)*src_slice_pitch
             + (src_origins[1]+region[1]-1)*src_row_pitch
             + (src_origins[0]+region[0]-1);
-        if(pos_max >= src_buffer_obj->size) {
+        if(pos_max >= (zend_long)(src_buffer_obj->size)) {
             efree(region);
             efree(src_origins);
             efree(dst_origins);
@@ -1269,7 +1269,7 @@ static PHP_METHOD(Buffer, copyRect)
             = (dst_origins[2]+region[2]-1)*dst_slice_pitch
             + (dst_origins[1]+region[1]-1)*dst_row_pitch
             + (dst_origins[0]+region[0]-1);
-        if(pos_max >= dst_buffer_obj->size) {
+        if(pos_max >= (zend_long)(dst_buffer_obj->size)) {
             efree(region);
             efree(src_origins);
             efree(dst_origins);
