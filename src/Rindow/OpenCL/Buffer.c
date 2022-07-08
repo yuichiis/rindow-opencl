@@ -985,6 +985,19 @@ static PHP_METHOD(Buffer, fill)
         event_wait_list = event_wait_list_obj->events;
     }
 
+    //if(1) {
+    //    zend_throw_exception_ex(spl_ce_RuntimeException, errcode_ret, 
+    //        "debug=%d,offset=%d,size=%d,pattern_size=%d,pattern_value_size=%d",
+    //        3,(int)offset,(int)size,(int)pattern_size,(int)(pattern_buffer_obj->value_size));
+    //    return;
+    //}
+    //php_printf("debug=%d,offset=%d,size=%d,pattern_size=%d,pattern_value_size=%d,sizeof(cl_float)=%d\n",
+    //        3,(int)offset,(int)size,(int)pattern_size,(int)(pattern_buffer_obj->value_size),(int)sizeof(cl_float));
+    //if(num_events_in_wait_list!=0 || event_wait_list!=NULL) {
+    //    zend_throw_exception_ex(spl_ce_RuntimeException, errcode_ret, 
+    //    "event_wait_list is not null");
+    //    return;
+    //}
     errcode_ret = clEnqueueFillBuffer(
         command_queue_obj->command_queue,
         intern->buffer,

@@ -88,7 +88,7 @@ static PHP_METHOD(DeviceList, __construct)
 
     platforms = Z_RINDOW_OPENCL_PLATFORM_LIST_OBJ_P(platforms_obj_p);
     if(index<0 || index >= platforms->num) {
-        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of platforms: %d", index);
+        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of platforms: %d", (int)index);
         return;
     }
     if(device_type==0) {
@@ -155,7 +155,7 @@ static PHP_METHOD(DeviceList, getOne)
 
     intern = Z_RINDOW_OPENCL_DEVICE_LIST_OBJ_P(getThis());
     if(index<0 || index >=intern->num) {
-        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of devices: %d", index);
+        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of devices: %d", (int)index);
         return;
     }
     // direct set to return_value
@@ -225,7 +225,7 @@ static PHP_METHOD(DeviceList, getInfo)
     ZEND_PARSE_PARAMETERS_END();
 
     if(index<0 || index >= intern->num) {
-        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of deivces: %d", index);
+        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of deivces: %d", (int)index);
         return;
     }
 

@@ -122,7 +122,7 @@ static PHP_METHOD(PlatformList, getOne)
 
     intern = Z_RINDOW_OPENCL_PLATFORM_LIST_OBJ_P(getThis());
     if(index<0 || index >=intern->num) {
-        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of platforms: %d", index);
+        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of platforms: %d", (int)index);
         return;
     }
     // direct set to return_value
@@ -156,7 +156,7 @@ static PHP_METHOD(PlatformList, getInfo)
     ZEND_PARSE_PARAMETERS_END();
 
     if(index<0 || index >= intern->num) {
-        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of platforms: %d", index);
+        zend_throw_exception_ex(spl_ce_OutOfRangeException, 0, "Invalid index of platforms: %d", (int)index);
         return;
     }
     errcode_ret = clGetPlatformInfo(intern->platforms[index],

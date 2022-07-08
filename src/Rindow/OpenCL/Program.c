@@ -21,7 +21,7 @@
 #define PHP_RINDOW_OPENCL_PROGRAM_CONST_TYPE_BUILTIN_KERNEL   2
 #define PHP_RINDOW_OPENCL_PROGRAM_CONST_TYPE_COMPILED_PROGRAM 3
 
-static unsigned char ** array_to_strings(
+static char ** array_to_strings(
     zval *array_val, cl_uint *num_strings_p, size_t **lengths_p, int *errcode_ret)
 {
     cl_uint num_strings;
@@ -203,7 +203,7 @@ static PHP_METHOD(Program, __construct)
                 program = clCreateProgramWithSource(
                     context_obj->context,
                     num_strings,
-                    strings,
+                    (const char**)strings,
                     lengths,
                     &errcode_ret);
                 efree(strings);
@@ -218,7 +218,7 @@ static PHP_METHOD(Program, __construct)
                     num_devices,
                     devices,
                     lengths,
-                    strings,
+                    (const unsigned char**)strings,
                     NULL,                 // cl_int * binary_status,
                     &errcode_ret);
                 efree(strings);
@@ -382,7 +382,7 @@ static PHP_METHOD(Program, compile)
         options,
         num_input_headers,
         input_headers,
-        header_include_names,
+        (const char **)header_include_names,
         NULL,        // CL_CALLBACK *  pfn_notify
         NULL         // void * user_data
     );

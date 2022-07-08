@@ -36,7 +36,7 @@ echo "SUCCESS Pure buffer\n";
 //  Constract buffer with null
 //
 $buffer = new Rindow\OpenCL\Buffer($context,intval(16*32/8),
-    $flags=null,$htbuffer=null,$offset=null);
+    $flags=0,$htbuffer=null,$offset=0);
 echo "SUCCESS constructor with null\n";
 //
 //  Constract with host buffer
@@ -121,7 +121,7 @@ foreach(range(0,15) as $value) {
     $newHostBuffer[$value]=0;
 }
 $buffer->read($queue,$newHostBuffer,
-                $size=null,$offset=null,$host_offset=null,$blocking_read=null,$events=null,$waitEvent=null);
+                $size=0,$offset=0,$host_offset=0,$blocking_read=null,$events=null,$waitEvent=null);
 for($i=0;$i<16;$i++) {
     assert($newHostBuffer[$i] == $i);
 }
@@ -184,7 +184,7 @@ for($i=0;$i<16;$i++) {
     $hostBuffer[$i] = $i+20;
 }
 $buffer->write($queue,$hostBuffer,
-                $size=null,$offset=null,$host_offset=null,$blocking_write=null,$events=null,$waitEvent=null);
+                $size=0,$offset=0,$host_offset=0,$blocking_write=null,$events=null,$waitEvent=null);
 $buffer->read($queue,$newHostBuffer);
 for($i=0;$i<16;$i++) {
     assert($newHostBuffer[$i] == $i+20);
@@ -239,18 +239,21 @@ for($i=0;$i<16;$i++) {
     assert($newHostBuffer[$i] == $i+30);
     assert($newHostBuffer2[$i] == $i*3);
 }
+$queue->finish();
 echo "SUCCESS read and write with wait events\n";
 //
 // fill
 //
 $hostBuffer = new RindowTest\OpenCL\HostBuffer(
-    2,NDArray::float32);
-foreach(range(0,1) as $value) {
-    $hostBuffer[$value] = $value+123;
-}
+    1,NDArray::float32);
+$hostBuffer[0] = 123.5;
+echo "fill-hostbuf\n";
 $buffer->fill($queue,$hostBuffer);
+echo "call-fill\n";
 $queue->finish();
+echo "call-finish\n";
 $buffer->read($queue,$newHostBuffer);
+echo "call-read\n";
 foreach(range(0,15) as $value) {
     assert($newHostBuffer[$value] == 123+($value%2));
 }
