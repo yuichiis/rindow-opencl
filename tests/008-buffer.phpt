@@ -247,15 +247,11 @@ echo "SUCCESS read and write with wait events\n";
 $hostBuffer = new RindowTest\OpenCL\HostBuffer(
     1,NDArray::float32);
 $hostBuffer[0] = 123.5;
-echo "fill-hostbuf\n";
 $buffer->fill($queue,$hostBuffer);
-echo "call-fill\n";
 $queue->finish();
-echo "call-finish\n";
 $buffer->read($queue,$newHostBuffer);
-echo "call-read\n";
 foreach(range(0,15) as $value) {
-    assert($newHostBuffer[$value] == 123+($value%2));
+    assert($newHostBuffer[$value] == 123.5);
 }
 echo "SUCCESS fill\n";
 //
@@ -326,7 +322,7 @@ echo "SUCCESS copy with null arguments\n";
 //
 $buffer = new Rindow\OpenCL\Buffer($context,intval(16*32/8),
     OpenCL::CL_MEM_READ_WRITE,
-    null,null,NDArray::float32);
+    null,0,NDArray::float32);
 assert($buffer->dtype()==NDArray::float32);
 assert($buffer->value_size()==intval(32/8));
 echo "SUCCESS construct with explicit dtype\n";

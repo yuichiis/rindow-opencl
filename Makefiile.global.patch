@@ -1,4 +1,1 @@
-s/TEST_PHP_EXECUTABLE=$(PHP_EXECUTABLE)/
-i
-		echo "extension=rindow_openblas" >> $(top_builddir)/tmp-php.ini; \
-		cp `$(PHP_EXECUTABLE) -r "echo ini_get('extension_dir');"`/rindow_openblas.* $(top_builddir)/modules/. ; \
+/TEST_PHP_EXECUTABLE=$(PHP_EXECUTABLE)/i\\t\techo "extension=rindow_openblas" >> $(top_builddir)/tmp-php.ini; \\\n\t\tcp `$(PHP_EXECUTABLE) -r "echo ini_get('extension_dir');"`/rindow_openblas.* $(top_builddir)/modules/. ; \\
