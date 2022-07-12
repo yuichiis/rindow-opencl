@@ -645,11 +645,13 @@ ZEND_BEGIN_ARG_INFO_EX(ai_Program_build, 0, 0, 0)
     ZEND_ARG_OBJ_INFO(0, devices, Rindow\\OpenCL\\DeviceList, 1)
 ZEND_END_ARG_INFO()
 
+#ifdef CL_VERSION_1_2
 ZEND_BEGIN_ARG_INFO_EX(ai_Program_compile, 0, 0, 0)
     ZEND_ARG_ARRAY_INFO(0, headers, 1)
     ZEND_ARG_INFO(0, options)
     ZEND_ARG_OBJ_INFO(0, deivces, Rindow\\OpenCL\\DeviceList, 1)
 ZEND_END_ARG_INFO()
+#endif
 
 ZEND_BEGIN_ARG_INFO_EX(ai_Program_getInfo, 0, 0, 1)
     ZEND_ARG_INFO(0, param_name)
@@ -667,7 +669,9 @@ static zend_function_entry php_rindow_opencl_program_me[] = {
     /* clang-format off */
     PHP_ME(Program, __construct, ai_Program___construct, ZEND_ACC_PUBLIC)
     PHP_ME(Program, build, ai_Program_build, ZEND_ACC_PUBLIC)
+#ifdef CL_VERSION_1_2
     PHP_ME(Program, compile, ai_Program_compile, ZEND_ACC_PUBLIC)
+#endif
     PHP_ME(Program, getInfo, ai_Program_getInfo, ZEND_ACC_PUBLIC)
     PHP_ME(Program, getBuildInfo, ai_Program_getBuildInfo, ZEND_ACC_PUBLIC)
     PHP_FE_END
