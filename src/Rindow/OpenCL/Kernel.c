@@ -407,7 +407,9 @@ static PHP_METHOD(Kernel, getInfo)
             RETURN_LONG(result);
             break;
         }
+#ifdef CL_VERSION_1_2
         case CL_KERNEL_ATTRIBUTES:
+#endif
         case CL_KERNEL_FUNCTION_NAME: {
             char *param_value = emalloc(param_value_size_ret);
             errcode_ret = clGetKernelInfo(intern->kernel,
@@ -538,8 +540,10 @@ static PHP_METHOD(Kernel, getWorkGroupInfo)
             RETURN_LONG(result);
             break;
         }
-        case CL_KERNEL_COMPILE_WORK_GROUP_SIZE:
-        case CL_KERNEL_GLOBAL_WORK_SIZE: {
+#ifdef CL_VERSION_1_2
+        case CL_KERNEL_GLOBAL_WORK_SIZE: 
+#endif
+        case CL_KERNEL_COMPILE_WORK_GROUP_SIZE: {
             size_t* item_sizes = emalloc(param_value_size_ret);
             errcode_ret = clGetKernelWorkGroupInfo(intern->kernel,
                         device_id,

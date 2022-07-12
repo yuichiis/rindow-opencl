@@ -906,6 +906,7 @@ static PHP_METHOD(Buffer, writeRect)
 }
 /* }}} */
 
+#ifdef CL_VERSION_1_2
 /* Method Rindow\OpenCL\Buffer::fill(
     CommandQueue $command_queue,
     Interop\Polite\Math\LinearBuffer $patternBuffer  // host buffer assigned
@@ -1020,6 +1021,7 @@ static PHP_METHOD(Buffer, fill)
     }
 }
 /* }}} */
+#endif
 
 /* Method Rindow\OpenCL\Buffer::copy(
     CommandQueue $command_queue,
@@ -1400,6 +1402,7 @@ ZEND_BEGIN_ARG_INFO_EX(ai_Buffer_writeRect, 0, 0, 3)
     ZEND_ARG_OBJ_INFO(0, event_wait_list, Rindow\\OpenCL\\EventList, 1)
 ZEND_END_ARG_INFO()
 
+#ifdef CL_VERSION_1_2
 ZEND_BEGIN_ARG_INFO_EX(ai_Buffer_fill, 0, 0, 2)
     ZEND_ARG_OBJ_INFO(0, queue, Rindow\\OpenCL\\CommandQueue, 0)
     ZEND_ARG_OBJ_INFO(0, pattern_buffer, Interop\\Polite\\Math\\Matrix\\LinearBuffer, 0)
@@ -1410,6 +1413,7 @@ ZEND_BEGIN_ARG_INFO_EX(ai_Buffer_fill, 0, 0, 2)
     ZEND_ARG_OBJ_INFO(0, events, Rindow\\OpenCL\\EventList, 1)
     ZEND_ARG_OBJ_INFO(0, event_wait_list, Rindow\\OpenCL\\EventList, 1)
 ZEND_END_ARG_INFO()
+#endif
 
 ZEND_BEGIN_ARG_INFO_EX(ai_Buffer_copy, 0, 0, 2)
     ZEND_ARG_OBJ_INFO(0, queue, Rindow\\OpenCL\\CommandQueue, 0)
@@ -1449,7 +1453,9 @@ static zend_function_entry php_rindow_opencl_buffer_me[] = {
     PHP_ME(Buffer, readRect,   ai_Buffer_readRect,  ZEND_ACC_PUBLIC)
     PHP_ME(Buffer, write,      ai_Buffer_write,     ZEND_ACC_PUBLIC)
     PHP_ME(Buffer, writeRect,  ai_Buffer_writeRect, ZEND_ACC_PUBLIC)
+#ifdef CL_VERSION_1_2
     PHP_ME(Buffer, fill,       ai_Buffer_fill,      ZEND_ACC_PUBLIC)
+#endif
     PHP_ME(Buffer, copy,       ai_Buffer_copy,      ZEND_ACC_PUBLIC)
     PHP_ME(Buffer, copyRect,   ai_Buffer_copyRect,  ZEND_ACC_PUBLIC)
     PHP_FE_END
