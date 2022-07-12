@@ -17,6 +17,11 @@ use Interop\Polite\Math\Matrix\OpenCL;
 //  Constract buffer
 //
 $context = new Rindow\OpenCL\Context(OpenCL::CL_DEVICE_TYPE_DEFAULT);
+$devices = $context->getInfo(OpenCL::CL_CONTEXT_DEVICES);
+$dev_version = $devices->getInfo(0,OpenCL::CL_DEVICE_VERSION);
+// $dev_version = 'OpenCL 1.1 Mesa';
+$isOpenCL110 = strstr($dev_version,'OpenCL 1.1') !== false;
+
 $queue = new Rindow\OpenCL\CommandQueue($context);
 $hostBuffer = new RindowTest\OpenCL\HostBuffer(
     16,NDArray::float32);
@@ -241,17 +246,20 @@ for($i=0;$i<16;$i++) {
 }
 $queue->finish();
 echo "SUCCESS read and write with wait events\n";
+
 //
 // fill
 //
-$hostBuffer = new RindowTest\OpenCL\HostBuffer(
-    1,NDArray::float32);
-$hostBuffer[0] = 123.5;
-$buffer->fill($queue,$hostBuffer);
-$queue->finish();
-$buffer->read($queue,$newHostBuffer);
-foreach(range(0,15) as $value) {
-    assert($newHostBuffer[$value] == 123.5);
+if(!$isOpenCL110) {
+    $hostBuffer = new RindowTest\OpenCL\HostBuffer(
+        1,NDArray::float32);
+    $hostBuffer[0] = 123.5;
+    $buffer->fill($queue,$hostBuffer);
+    $queue->finish();
+    $buffer->read($queue,$newHostBuffer);
+    foreach(range(0,15) as $value) {
+        assert($newHostBuffer[$value] == 123.5);
+    }
 }
 echo "SUCCESS fill\n";
 //

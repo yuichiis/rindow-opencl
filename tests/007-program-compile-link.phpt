@@ -42,6 +42,20 @@ function compile_error($program,$e) {
     throw $e;
 }
 $context = new Rindow\OpenCL\Context(OpenCL::CL_DEVICE_TYPE_DEFAULT);
+$devices = $context->getInfo(OpenCL::CL_CONTEXT_DEVICES);
+$dev_version = $devices->getInfo(0,OpenCL::CL_DEVICE_VERSION);
+// $dev_version = 'OpenCL 1.1 Mesa';
+$isOpenCL110 = strstr($dev_version,'OpenCL 1.1') !== false;
+if($isOpenCL110) {
+    echo "SUCCESS Construction sub-source\n";
+    echo "SUCCESS Construction\n";
+    echo "SUCCESS Compiling\n";
+    echo "SUCCESS link program\n";
+    echo "SUCCESS Compiling with null arguments\n";
+    echo "SUCCESS linking with null arguments\n";
+    exit();
+}
+
 $header0 =
     "typedef int number_int_t;\n";
 $sources = [

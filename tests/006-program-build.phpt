@@ -43,6 +43,11 @@ function compile_error($program,$e) {
 }
 
 $context = new Rindow\OpenCL\Context(OpenCL::CL_DEVICE_TYPE_DEFAULT);
+$devices = $context->getInfo(OpenCL::CL_CONTEXT_DEVICES);
+$dev_version = $devices->getInfo(0,OpenCL::CL_DEVICE_VERSION);
+//$dev_version = 'OpenCL 1.1 Mesa';
+$isOpenCL110 = strstr($dev_version,'OpenCL 1.1') !== false;
+
 $sources = [
     "__kernel void saxpy(const global float * x,\n".
     "                    __global float * y,\n".
@@ -71,7 +76,9 @@ try {
 }
 
 echo "SUCCESS build with null arguments\n";
-assert(null!==$program->getInfo(OpenCL::CL_PROGRAM_KERNEL_NAMES));
+if(!$isOpenCL110) {
+    assert(null!==$program->getInfo(OpenCL::CL_PROGRAM_KERNEL_NAMES));
+}
 echo "SUCCESS getInfo\n";
 /*
 echo "CL_PROGRAM_REFERENCE_COUNT=".$program->getInfo(OpenCL::CL_PROGRAM_REFERENCE_COUNT)."\n";
