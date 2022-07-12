@@ -25,6 +25,7 @@ if test "$PHP_RINDOW_OPENCL" != "no"; then
   else
     AC_MSG_ERROR(pkg-config not found)
   fi
+  AC_DEFINE(CL_TARGET_OPENCL_VERSION, 120, [ Target OpenCL version 1.2 ])
   PHP_EVAL_LIBLINE($LIBBLAS_LIBDIR, RINDOW_OPENCL_SHARED_LIBADD)
   PHP_EVAL_INCLINE($LIBBLAS_CFLAGS)
 
