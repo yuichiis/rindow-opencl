@@ -228,6 +228,7 @@ static PHP_METHOD(Program, __construct)
             }
             break;
         }
+#ifdef CL_VERSION_1_2
         case PHP_RINDOW_OPENCL_PROGRAM_CONST_TYPE_BUILTIN_KERNEL: { // built-in kernel mode
             if(Z_TYPE_P(source_obj_p)!=IS_STRING) {
                 zend_throw_exception(spl_ce_InvalidArgumentException, "built-in kernel mode must be include kernel name string", CL_INVALID_VALUE);
@@ -282,6 +283,7 @@ static PHP_METHOD(Program, __construct)
             }
             break;
         }
+#endif
         default: {
             zend_throw_exception(spl_ce_InvalidArgumentException, "invalid mode.", CL_INVALID_VALUE);
             return;
@@ -334,6 +336,7 @@ static PHP_METHOD(Program, build)
 }
 /* }}} */
 
+#ifdef CL_VERSION_1_2
 /* Method Rindow\OpenCL\Program::compile(
     array $headers=null,  // ArrayHash<Program> Key:file path Value:program
     string $options=null, // string
@@ -396,6 +399,7 @@ static PHP_METHOD(Program, compile)
     }
 }
 /* }}} */
+#endif
 
 /* Method Rindow\OpenCL\Program::getInfo(
     int $param_name
@@ -432,6 +436,7 @@ static PHP_METHOD(Program, getInfo)
             RETURN_LONG(result);
             break;
         }
+#ifdef CL_VERSION_1_2
         case CL_PROGRAM_NUM_KERNELS: {
             size_t size_t_result;
             zend_long result;
@@ -442,11 +447,14 @@ static PHP_METHOD(Program, getInfo)
             RETURN_LONG(result);
             break;
         }
+#endif
 #ifdef CL_VERSION_2_1
         case CL_PROGRAM_IL:
 #endif
-        case CL_PROGRAM_SOURCE:
-        case CL_PROGRAM_KERNEL_NAMES: {
+#ifdef CL_VERSION_1_2
+        case CL_PROGRAM_KERNEL_NAMES:
+#endif
+        case CL_PROGRAM_SOURCE: {
             char *param_value = emalloc(param_value_size_ret);
             errcode_ret = clGetProgramInfo(intern->program,
                               (cl_program_info)param_name,
@@ -580,6 +588,7 @@ static PHP_METHOD(Program, getBuildInfo)
             RETURN_LONG(result);
             break;
         }
+#ifdef CL_VERSION_1_2
         case CL_PROGRAM_BINARY_TYPE: {
             cl_uint uint_result;
             zend_long result;
@@ -591,6 +600,7 @@ static PHP_METHOD(Program, getBuildInfo)
             RETURN_LONG(result);
             break;
         }
+#endif
         case CL_PROGRAM_BUILD_OPTIONS:
         case CL_PROGRAM_BUILD_LOG: {
             zend_string *param_value_val = zend_string_safe_alloc(param_value_size_ret, 1, 0, 0);
