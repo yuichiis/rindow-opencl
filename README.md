@@ -1,7 +1,7 @@
 Rindow OpenCL PHP extension
 ===========================
 You can use OpenCL on PHP.
-The version of OpenCL is limited to version 1.2, and we are considering porting to a wide range of environments.
+The version of OpenCL is limited to version 1.2(1.1 with restrictions), and we are considering porting to a wide range of environments.
 
 Since our goal is to use it with the Rindow Neural Network Library, we currently only have the minimum required functionality. It will be expanded in the future.
 
@@ -13,8 +13,8 @@ Requirements
 - PHP7.2 or PHP7.3 or PHP7.4 or PHP8.0 or PHP8.1
 - interop-phpobjects/polite-math 1.0.3 or later
 - LinearBuffer implements for interop-phpobjects (rindow_openblas etc.)
-- OpenCL 1.2 drivers/libraries.
-- Windows 10
+- OpenCL 1.2 ICL loader and OpenCL 1.1 drivers
+- Windows / Linux
 
 AMD GPU/APU drivers for windows are including OpenCL drivers.
 Probably you can use Intel OpenCL dirivers.
