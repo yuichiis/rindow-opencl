@@ -265,27 +265,33 @@ echo "SUCCESS fill\n";
 //
 // fill with null arguments
 //
-$hostBuffer = new RindowTest\OpenCL\HostBuffer(
-    2,NDArray::float32);
-foreach(range(0,1) as $value) {
-    $hostBuffer[$value] = $value+123;
-}
-$buffer->fill($queue,$hostBuffer,
-    $size=0,$offset=0,$pattern_size=0,$pattern_offset=0,$events=null,$waitEvent=null);
-$queue->finish();
-$buffer->read($queue,$newHostBuffer);
-foreach(range(0,15) as $value) {
-    assert($newHostBuffer[$value] == 123+($value%2));
+if(!$isOpenCL110) {
+    $hostBuffer = new RindowTest\OpenCL\HostBuffer(
+        2,NDArray::float32);
+    foreach(range(0,1) as $value) {
+        $hostBuffer[$value] = $value+123;
+    }
+    $buffer->fill($queue,$hostBuffer,
+        $size=0,$offset=0,$pattern_size=0,$pattern_offset=0,$events=null,$waitEvent=null);
+    $queue->finish();
+    $buffer->read($queue,$newHostBuffer);
+    foreach(range(0,15) as $value) {
+        assert($newHostBuffer[$value] == 123+($value%2));
+    }
 }
 echo "SUCCESS fill with null arguments\n";
 //
 // fill with invalid object arguments
 //
-$invalidBuffer = new \stdClass();
-try {
-    $buffer->fill($queue,$invalidBuffer);
-} catch (\Throwable $e) {
-    echo "Invalid Host Buffer catch: ".get_class($e)."\n";
+if(!$isOpenCL110) {
+    $invalidBuffer = new \stdClass();
+    try {
+        $buffer->fill($queue,$invalidBuffer);
+    } catch (\Throwable $e) {
+        echo "Invalid Host Buffer catch: ".get_class($e)."\n";
+    }
+} else {
+    echo "Invalid Host Buffer catch: TypeError\n";
 }
 echo "SUCCESS fill with invalid object arguments\n";
 //
@@ -293,9 +299,16 @@ echo "SUCCESS fill with invalid object arguments\n";
 //
 $hostBuffer = new RindowTest\OpenCL\HostBuffer(
     16,NDArray::float32);
+for($i=0;$i<16;$i++) {
+    $hostBuffer[$i] = 123+($i%2);
+}
+$buffer->write($queue,$hostBuffer);
+$hostBuffer = new RindowTest\OpenCL\HostBuffer(
+    16,NDArray::float32);
 foreach(range(0,15) as $value) {
     $hostBuffer[$value] = 0;
 }
+
 $buffer2 = new Rindow\OpenCL\Buffer($context,intval(16*32/8),
     OpenCL::CL_MEM_READ_WRITE|OpenCL::CL_MEM_COPY_HOST_PTR,
     $hostBuffer);
@@ -322,7 +335,7 @@ $buffer->copy($queue,$buffer2,
 $queue->finish();
 $buffer2->read($queue,$hostBuffer);
 foreach(range(0,15) as $value) {
-    assert($newHostBuffer[$value] == 123+($value%2));
+    assert($hostBuffer[$value] == 123+($value%2));
 }
 echo "SUCCESS copy with null arguments\n";
 //
