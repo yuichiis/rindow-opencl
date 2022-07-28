@@ -13,7 +13,7 @@ Requirements
 - PHP7.2 or PHP7.3 or PHP7.4 or PHP8.0 or PHP8.1
 - interop-phpobjects/polite-math 1.0.3 or later
 - LinearBuffer implements for interop-phpobjects (rindow_openblas etc.)
-- OpenCL 1.2 ICL loader and OpenCL 1.1 drivers
+- OpenCL 1.2 ICL loader and OpenCL 1.1/1.2 drivers
 - Windows / Linux
 
 AMD GPU/APU drivers for windows are including OpenCL drivers.
@@ -47,6 +47,8 @@ Please download the following two binaries and extract.
 - DLL of OpenBLAS library.
 - DLL of CLBlast library.
 
+### Windows
+
 Copy the shared library to the PHP extension directory and set it in php.ini.
 And OpenBLAS DLL's path to Windows PATH environment variable.
 
@@ -62,19 +64,27 @@ C:\tmp>cd /some/app/directory
 C:\app\dir>composer require rindow/rindow-math-matrix
 ```
 
-For Ubuntu, use the apt command to install the deb file.
+### Ubuntu
 
+For example, in the case of Ubuntu standard AMD driver, install as follows
 ```shell
 $ sudo apt install clinfo
-$ sudo apt install XXX-opencl-icd-XXX
-$ sudo apt install ./rindow-opencl-phpX.X_X.X.X-X+ubuntuXX.XX_amd64.deb
+$ sudo apt install mesa-opencl-icd
+$ sudo mkdir -p /usr/local/usr/lib
+$ sudo ln -s /usr/lib/clc /usr/local/usr/lib/clc
 ```
-For example, Ubuntu standard OpenCL drivers include:
+Ubuntu standard OpenCL drivers include:
 - mesa-opencl-icd
 - beignet-opencl-icd
 - intel-opencl-icd
 - nvidia-opencl-icd-xxx
 - pocl-opencl-icd
+
+Use the apt command to install the deb file.
+
+```shell
+$ sudo apt install ./rindow-opencl-phpX.X_X.X.X-X+ubuntuXX.XX_amd64.deb
+```
 
 
 How to build from source code on Linux
@@ -91,6 +101,8 @@ For example, in the case of Ubuntu standard AMD driver, install as follows
 
 ```shell
 $ sudo apt install mesa-opencl-icd
+$ sudo mkdir -p /usr/local/usr/lib
+$ sudo ln -s /usr/lib/clc /usr/local/usr/lib/clc
 ```
 
 In addition, there are the following drivers.
