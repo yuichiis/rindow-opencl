@@ -146,7 +146,7 @@ Run the target php version of phpize and build.
 
 ```shell
 $ git clone https://github.com/rindow/rindow-opencl
-$ cd rindow_opencl
+$ cd rindow-opencl
 $ composer update
 $ phpize8.1
 $ mv build/Makefile.global build/Makefile.global.orig
