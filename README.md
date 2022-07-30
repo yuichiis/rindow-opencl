@@ -138,6 +138,7 @@ Install gcc development environment and opencl library. Then install the php dev
 $ sudo apt install build-essential autoconf automake libtool bison re2c
 $ sudo apt install pkg-config
 $ sudo apt install php8.1-dev
+$ sudo apt install ocl-icd-opencl-dev
 $ sudo apt install ./rindow-openblas-php8.1_X.X.X-X+ubuntuXX.XX_amd64.deb
 ```
 
