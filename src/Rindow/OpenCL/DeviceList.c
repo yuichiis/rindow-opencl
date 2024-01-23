@@ -469,7 +469,7 @@ ZEND_BEGIN_ARG_INFO_EX(ai_DeviceList___construct, 0, 0, 1)
     ZEND_ARG_INFO(0, device_type)
 ZEND_END_ARG_INFO()
 
-ZEND_BEGIN_ARG_INFO_EX(ai_DeviceList_count, 0, 0, 0)
+ZEND_BEGIN_ARG_WITH_RETURN_TYPE_INFO_EX(ai_DeviceList_count, 0, 0, IS_LONG, 0)
 ZEND_END_ARG_INFO()
 
 ZEND_BEGIN_ARG_INFO_EX(ai_DeviceList_getOne, 0, 0, 1)
@@ -513,6 +513,6 @@ void php_rindow_opencl_device_list_init_ce(INIT_FUNC_ARGS)
     rindow_opencl_device_list_object_handlers.free_obj  = php_rindow_opencl_device_list_free_object;
     rindow_opencl_device_list_object_handlers.clone_obj = NULL;
 
-    //zend_class_implements(php_rindow_opencl_device_list_ce, 2, spl_ce_ArrayAccess, spl_ce_Countable);
+    zend_class_implements(php_rindow_opencl_device_list_ce, 1, zend_ce_countable);
 }
 /* }}} */
