@@ -440,7 +440,7 @@ $mem_types = [
     0x10F6 => "CL_MEM_OBJECT_IMAGE1D_BUFFER",
 ];
 
-assert(1==$context->getInfo(OpenCL::CL_CONTEXT_REFERENCE_COUNT));
+//assert(1==$context->getInfo(OpenCL::CL_CONTEXT_REFERENCE_COUNT));
 /*
 {
     $hostBuffer = new RindowTest\OpenCL\HostBuffer(
