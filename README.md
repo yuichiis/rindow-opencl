@@ -10,7 +10,7 @@ Learn more about the Rindow Neural Network Library [here](https://rindow.github.
 Requirements
 ============
 
-- PHP7.2 or PHP7.3 or PHP7.4 or PHP8.0 or PHP8.1 or PHP8.2
+- PHP7.2 or PHP7.3 or PHP7.4 or PHP8.0 or PHP8.1 or PHP8.2 or PHP8.3
 - interop-phpobjects/polite-math 1.0.3 or later
 - LinearBuffer implements for interop-phpobjects (rindow_openblas etc.)
 - OpenCL 1.2 ICL loader and OpenCL 1.1/1.2 drivers
