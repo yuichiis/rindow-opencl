@@ -27,8 +27,6 @@ Requirements
 - Windows / Linux
 
 AMD GPU/APU drivers for windows are including OpenCL drivers.
-Probably you can use Intel OpenCL dirivers.
-Intel OpenCL drivers can be downloaded from site https://software.intel.com/content/www/us/en/develop/articles/opencl-drivers.html
 
 Recommend environment
 =====================
