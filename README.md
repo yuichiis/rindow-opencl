@@ -181,7 +181,7 @@ C:\php-sdk>phpsdk-vs16-x64.bat
 $ cd /path/to/here
 $ composer update
 $ /path/to/php-devel-pack-x.x.x-Win32-VXXX-x64/phpize.bat
-$ configure --enable-rindow_opencl --with-prefix=/path/to/php-installation-path --with-opencl=/path/to/OpenCL-devel-directory
+$ configure --enable-rindow_opencl --with-prefix=/path/to/php-installation-path --with-opencl=/path/to/OpenCL-SDK-directory
 $ nmake clean
 $ nmake
 $ nmake test
