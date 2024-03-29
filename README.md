@@ -15,7 +15,7 @@ The version of OpenCL is limited to version 1.2(1.1 with restrictions), and we a
 
 Since our goal is to use it with the Rindow Neural Network Library, we currently only have the minimum required functionality. It will be expanded in the future.
 
-Learn more about the Rindow Neural Network Library [here](https://rindow.github.io/).
+Learn more about the Rindow Neural Network Library [here](https://rindow.github.io/neuralnetworks/).
 
 Requirements
 ============
@@ -32,12 +32,12 @@ Recommend environment
 =====================
 
 - PHP8.1 or PHP8.2 or PHP8.3
-- LinearBuffer implements - rindow-openblas 0.4.0 or later. [sources](https://github.com/rindow/rindow-openblas), [binaries](https://github.com/rindow_openblas-binaries)
+- OpenBLAS [sources](https://github.com/OpenMathLib/OpenBLAS), [binaries](https://github.com/OpenMathLib/OpenBLAS/releases)
+- LinearBuffer implements - rindow-openblas 0.4.0 or later. [sources](https://github.com/rindow/rindow-openblas), [binaries](https://github.com/rindow/rindow-openblas/releases)
 - OpenCL binding for PHP - rindow-opencl 0.2.0. [sources](https://github.com/rindow/rindow-opencl), [binaries](https://github.com/rindow-opencl/releases)
 - BLAS libray for OpenCL implements - rindow-clblast 0.2.0. [sources](https://github.com/rindow/rindow-clblast), [binaries](https://github.com/rindow-clblast/releases)
 - Matrix PHP library - rindow-math-matrix 2.0.0 or later. [sources](https://github.com/rindow/rindow-math-matrix)
 - Driver Pack - rindow-math-matrix-matlibext 1.0.0 or later. [sources](https://github.com/rindow/rindow-math-matrix-matlibext)
-- Machine learning library on PHP - rindow-neuralnetworks [sources](https://github.com/rindow/rindow-neuralnetworks)
 
 
 How to build from source code on Linux
@@ -140,34 +140,10 @@ Developing PHP extensions from php8.0 requires VS16. You can use Visual Studio 2
 - Download target dev-pack from https://windows.php.net/downloads/releases/
 - Extract to /path/to/php-devel-pack-x.x.x-Win32-Vxxx-x64/
 
-### Exports OpenCL binding library
+### Download OpenCL-SDK
 
-```shell
-C:\visual\studio\path>vcvars64 -vcvars_ver=14.16  <=== for PHP7.x
-or
-C:\visual\studio\path>vcvars64                    <=== for PHP8.0, PHP8.1, PHP8.2
-
-C:\visual\studio\path>cd /path/to/OpenCL
-C:\path\OpenCL>mkdir lib
-C:\path\OpenCL>cd lib
-C:\path\OpenCL\lib>dumpbin /exports \windows\system32\OpenCL.dll > OpenCL.def
-C:\path\OpenCL\lib>notepad OpenCL.def                     #### edit def file
-EXPORTS
-
-clBuildProgram
-.....
-
-C:\path\OpenCL\lib>lib /def:OpenCL.def /machine:x64
-```
-
-### Download OpenCL Headers
-
-- Download OpenCL Headers form https://github.com/KhronosGroup/OpenCL-Headers
+- Download OpenCL SDK form https://github.com/KhronosGroup/OpenCL-SDK/releases
 - extract and copy to opencl development directory
-
-```shell
-TMP>xcopy OpenCL-Headers-20XX.XX.XX \path\OpenCL\include /S /I
-```
 
 ### Install and setup rindow_openblas for test
 
