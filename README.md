@@ -118,6 +118,12 @@ $ sudo make install
 ```
 Add the "extension=rindow_opencl" entry to php.ini
 
+If you want an easier install, use the following spell instead of "make install" and creating an ini file.
+
+```shell
+$ sh ./packaging.sh X.X   (ex. sh ./packaging.sh 8.1)
+$ sudo apt install ./rindow-opencl-phpX.X_X.X.X_amd64.deb (ex. ./rindow-opencl-php8.1_...)
+```
 
 How to build from source code on Windows
 ========================================
